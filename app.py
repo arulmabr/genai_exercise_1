@@ -85,7 +85,7 @@ def main():
                         st.error(f"Error: {str(e)}")
 
     # Main content
-    st.title("Berkeley Haas XMBA 257-4: Generative AI for Managers")
+    st.title("Berkeley Haas: AI For Business Leaders (EWMBA295T.6)")
 
     # Get the last answered question for this user
     last_answered = get_last_answered_question(email)
