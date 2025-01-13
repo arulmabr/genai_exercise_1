@@ -20,13 +20,17 @@ s3_client = boto3.client(
 )
 
 
-def save_answer(email: str, question_number: int, answer: str) -> None:
+def save_answer(
+    email: str, question_number: int, answer: str, ai_usage: str, time_taken: int
+) -> None:
     """Save or update a user's answer to a question."""
     new_answer = pd.DataFrame(
         {
             "email": [email],
             "question_number": [question_number],
             "answer": [answer],
+            "ai_usage": [ai_usage],
+            "time_taken": [time_taken],
             "submitted_at": [datetime.now().isoformat()],
         }
     )
@@ -68,7 +72,14 @@ def get_user_answers(email: str) -> pd.DataFrame:
         return pd.read_csv(io.BytesIO(response["Body"].read()))
     except:
         return pd.DataFrame(
-            columns=["email", "question_number", "answer", "submitted_at"]
+            columns=[
+                "email",
+                "question_number",
+                "answer",
+                "ai_usage",
+                "time_taken",
+                "submitted_at",
+            ]
         )
 
 

@@ -123,10 +123,34 @@ def main():
         key=f"answer_input_{st.session_state.current_question}",
     )
 
+    # Self-declared AI usage
+    ai_usage = st.radio(
+        "Did you use AI assistance for this answer?",
+        ["No AI Assistance", "GPT-3.5-turbo", "GPT-4o"],
+        key=f"ai_usage_{st.session_state.current_question}",
+    )
+
+    # Time taken
+    time_taken = st.number_input(
+        "How many minutes did it take you to complete this task?",
+        min_value=1,
+        max_value=120,
+        value=5,
+        step=1,
+        key=f"time_taken_{st.session_state.current_question}",
+    )
+
     if st.button("Submit Answer"):
         if answer.strip():
             if st.session_state.current_question <= last_answered + 1:
-                save_answer(email, st.session_state.current_question, answer)
+                # Update save_answer call to include new fields
+                save_answer(
+                    email,
+                    st.session_state.current_question,
+                    answer,
+                    ai_usage,
+                    time_taken,
+                )
                 st.success("Answer submitted successfully!")
 
                 # Check if this was the last question
